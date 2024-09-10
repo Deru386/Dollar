@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solana Brute Force Attack</title>
+</head>
+<body>
+    <h1>Solana Brute Force Attack</h1>
+    <p>Please enter your Solana network receive address to withdraw funds:</p>
+    <input type="text" id="receiveAddress">
+    <button onclick="startAttack()">Start Attack</button>
+    <div id="result"></div>
+
+    <script>
+        function startAttack() {
+            var receiveAddress = document.getElementById("receiveAddress").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "attack.py", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("result").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send("receiveAddress=" + encodeURIComponent(receiveAddress));
+        }
+    </script>
+</body>
+  </html>
